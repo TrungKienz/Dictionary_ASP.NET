@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KIqOcBYKQQEpGw/TE7YUZf2H79K90dsa1dCMT5/2COw=",
+  "Hash": "YyCpsoYWZSS63kzEXeDGDT6LG1f3x7+22drWvDHrGFI=",
   "Source": "Dictionary_ASP.NET",
   "BasePath": "_content/Dictionary_ASP.NET",
   "Mode": "Default",
@@ -17,10 +17,10 @@
   ],
   "Assets": [
     {
-      "Identity": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net6.0/scopedcss/bundle/Dictionary_ASP.NET.styles.css",
+      "Identity": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/scopedcss/bundle/Dictionary_ASP.NET.styles.css",
       "SourceId": "Dictionary_ASP.NET",
       "SourceType": "Computed",
-      "ContentRoot": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net6.0/scopedcss/bundle/",
+      "ContentRoot": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/scopedcss/bundle/",
       "BasePath": "_content/Dictionary_ASP.NET",
       "RelativePath": "Dictionary_ASP.NET.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net6.0/scopedcss/bundle/Dictionary_ASP.NET.styles.css"
+      "OriginalItemSpec": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/scopedcss/bundle/Dictionary_ASP.NET.styles.css"
     },
     {
-      "Identity": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net6.0/scopedcss/projectbundle/Dictionary_ASP.NET.bundle.scp.css",
+      "Identity": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/scopedcss/projectbundle/Dictionary_ASP.NET.bundle.scp.css",
       "SourceId": "Dictionary_ASP.NET",
       "SourceType": "Computed",
-      "ContentRoot": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net6.0/scopedcss/projectbundle/",
+      "ContentRoot": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/scopedcss/projectbundle/",
       "BasePath": "_content/Dictionary_ASP.NET",
       "RelativePath": "Dictionary_ASP.NET.bundle.scp.css",
       "AssetKind": "All",
@@ -48,7 +48,7 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net6.0/scopedcss/projectbundle/Dictionary_ASP.NET.bundle.scp.css"
+      "OriginalItemSpec": "/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/scopedcss/projectbundle/Dictionary_ASP.NET.bundle.scp.css"
     },
     {
       "Identity": "/home/trungkien/Code/Dictionary_ASP.NET/wwwroot/css/site.css",
