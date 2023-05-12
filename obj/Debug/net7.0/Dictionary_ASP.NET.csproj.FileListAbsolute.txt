@@ -29,3 +29,14 @@
 /home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/Dictionary_ASP.NET.pdb
 /home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/Dictionary_ASP.NET.genruntimeconfig.cache
 /home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/ref/Dictionary_ASP.NET.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.IdentityModel.Abstractions.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.IdentityModel.Logging.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/home/trungkien/Code/Dictionary_ASP.NET/obj/Debug/net7.0/Dictionary_ASP.NET.csproj.CopyComplete
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/home/trungkien/Code/Dictionary_ASP.NET/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
