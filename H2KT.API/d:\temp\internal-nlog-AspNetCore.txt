@@ -1,0 +1,79 @@
+2023-06-13 15:52:03.2824 Info Message Template Auto Format enabled
+2023-06-13 15:52:03.3017 Info Loading assembly: NLog.Web.AspNetCore
+2023-06-13 15:52:03.3396 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-06-13 15:52:03.3396 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2023-06-13 15:52:03.3396 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2023-06-13 15:52:03.3441 Info Registered target NLog.Targets.NLogViewerTarget(Name=log4view)
+2023-06-13 15:52:03.3627 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/DATN-backend-master/H2KT.Api/bin/Debug/net6.0/nlog.config
+2023-06-13 15:52:03.4268 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 15:52:03.5395 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/DATN-backend-master/H2KT.Api/bin/Debug/net6.0/nlog.config
+2023-06-13 15:52:55.7662 Info Shutdown() called. Logger closing...
+2023-06-13 15:52:55.7662 Info Closing old configuration.
+2023-06-13 15:52:55.7741 Info Logger has been closed down.
+2023-06-13 15:53:26.7314 Info Message Template Auto Format enabled
+2023-06-13 15:53:26.7418 Info Loading assembly: NLog.Web.AspNetCore
+2023-06-13 15:53:26.7702 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-06-13 15:53:26.7702 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2023-06-13 15:53:26.7702 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2023-06-13 15:53:26.7742 Info Registered target NLog.Targets.NLogViewerTarget(Name=log4view)
+2023-06-13 15:53:26.7922 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/DATN-backend-master/H2KT.Api/bin/Debug/net6.0/nlog.config
+2023-06-13 15:53:26.8481 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 15:53:26.9105 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/DATN-backend-master/H2KT.Api/bin/Debug/net6.0/nlog.config
+2023-06-13 15:53:49.6941 Info Shutdown() called. Logger closing...
+2023-06-13 15:53:49.6941 Info Closing old configuration.
+2023-06-13 15:53:49.7044 Info Logger has been closed down.
+2023-06-13 15:55:06.9885 Info Message Template Auto Format enabled
+2023-06-13 15:55:07.0022 Info Loading assembly: NLog.Web.AspNetCore
+2023-06-13 15:55:07.0337 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-06-13 15:55:07.0337 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2023-06-13 15:55:07.0337 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2023-06-13 15:55:07.0377 Info Registered target NLog.Targets.NLogViewerTarget(Name=log4view)
+2023-06-13 15:55:07.0565 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/DATN-backend-master/H2KT.Api/bin/Debug/net6.0/nlog.config
+2023-06-13 15:55:07.1175 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 15:55:07.1809 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/DATN-backend-master/H2KT.Api/bin/Debug/net6.0/nlog.config
+2023-06-13 16:47:36.3205 Info Message Template Auto Format enabled
+2023-06-13 16:47:36.3319 Info Loading assembly: NLog.Web.AspNetCore
+2023-06-13 16:47:36.3617 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-06-13 16:47:36.3617 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2023-06-13 16:47:36.3617 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2023-06-13 16:47:36.3660 Info Registered target NLog.Targets.NLogViewerTarget(Name=log4view)
+2023-06-13 16:47:36.3829 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 16:47:36.4419 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 16:47:36.5345 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 16:47:36.8999 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 16:49:24.7456 Info Message Template Auto Format enabled
+2023-06-13 16:49:24.7612 Info Loading assembly: NLog.Web.AspNetCore
+2023-06-13 16:49:24.7921 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-06-13 16:49:24.7921 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2023-06-13 16:49:24.7921 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2023-06-13 16:49:24.7960 Info Registered target NLog.Targets.NLogViewerTarget(Name=log4view)
+2023-06-13 16:49:24.8131 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 16:49:24.8685 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 16:49:24.9275 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 16:49:57.2248 Info Shutdown() called. Logger closing...
+2023-06-13 16:49:57.2248 Info Closing old configuration.
+2023-06-13 16:49:57.2326 Info Logger has been closed down.
+2023-06-13 16:50:01.4084 Info Message Template Auto Format enabled
+2023-06-13 16:50:01.4188 Info Loading assembly: NLog.Web.AspNetCore
+2023-06-13 16:50:01.4494 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-06-13 16:50:01.4494 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2023-06-13 16:50:01.4494 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2023-06-13 16:50:01.4535 Info Registered target NLog.Targets.NLogViewerTarget(Name=log4view)
+2023-06-13 16:50:01.4703 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 16:50:01.5264 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 16:50:01.5871 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 16:56:11.4669 Info Shutdown() called. Logger closing...
+2023-06-13 16:56:11.4669 Info Closing old configuration.
+2023-06-13 16:56:11.4873 Info Logger has been closed down.
+2023-06-13 16:56:28.0340 Info Message Template Auto Format enabled
+2023-06-13 16:56:28.0449 Info Loading assembly: NLog.Web.AspNetCore
+2023-06-13 16:56:28.0730 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2023-06-13 16:56:28.0730 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2023-06-13 16:56:28.0730 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2023-06-13 16:56:28.0765 Info Registered target NLog.Targets.NLogViewerTarget(Name=log4view)
+2023-06-13 16:56:28.0926 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 16:56:28.1452 Error NLogViewerTarget(Name=log4view): Error when sending. Exception: System.IO.IOException: Error: ConnectionRefused, Address: tcp://127.0.0.1:877
+2023-06-13 16:56:28.2062 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, log4view, ConfigItems=64, FilePath=/home/trungkien/Code/Dictionary_ASP.NET/H2KT.API/bin/Debug/net6.0/nlog.config
+2023-06-13 17:06:09.5161 Info Shutdown() called. Logger closing...
+2023-06-13 17:06:09.5161 Info Closing old configuration.
+2023-06-13 17:06:09.5321 Info Logger has been closed down.
