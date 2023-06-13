@@ -55,6 +55,8 @@ namespace H2KT.Core.Utils
             // Cache sql
             services.AddTransient<ICacheSqlUtil, CacheSqlUtil>();
 
+            // Session service
+            services.AddSingleton<ISessionService, SessionService>();
 
             // Storage
             services.AddScoped<StorageUtil>();
@@ -64,6 +66,7 @@ namespace H2KT.Core.Utils
 
             // Add send mail service
             services.Configure<MailSettings>(configuration.GetSection(AppSettingKey.MailSettingsSection));
+            services.AddTransient<IMailService, MailService>();
 
 
             // Inject service mapper, auth, cache
