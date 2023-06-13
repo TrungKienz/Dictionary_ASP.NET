@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/Dictionary_ASP.NET.props" />
-</Project>
