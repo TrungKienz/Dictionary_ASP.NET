@@ -41,13 +41,21 @@ namespace H2KT.Api
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuditLogService, AuditLogService>();
+            services.AddScoped<IDictionaryService, DictionaryService>();
+            services.AddScoped<ITemplateService, TemplateService>();
             services.AddScoped<IConceptService, ConceptService>();
             services.AddScoped<IUserConfigService, UserConfigService>();
+            services.AddScoped<IExampleService, ExampleService>();
+            services.AddScoped<IExternalApiService, ExternalApiService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuditLogRepository, AuditLogRepository>();
+            services.AddScoped<IDictionaryRepository, DictionaryRepository>();
             services.AddScoped<IConceptRepository, ConceptRepository>();
             services.AddScoped<IConceptRelationshipRepository, ConceptRelationshipRepository>();
+            services.AddScoped<ICacheSqlRepository, CacheSqlRepository>();
+            services.AddScoped<IExampleRepository, ExampleRepository>();
+            services.AddScoped<ICacheExternalWordApiRepository, CacheExternalWordApiRepository>();
 
         }
 
