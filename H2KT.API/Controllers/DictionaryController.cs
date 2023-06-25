@@ -1,4 +1,5 @@
-﻿using H2KT.Core.Constants;
+
+using H2KT.Core.Constants;
 using H2KT.Core.Interfaces.Service;
 using H2KT.Core.Models.DTO;
 using H2KT.Core.Models.Param;
@@ -25,10 +26,10 @@ namespace H2KT.Api.Controllers
             _service = service;
         }
         #endregion
-
-        
+      
         /// Lấy từ điển theo id
 [HttpGet("get_dictionary_by_id")]
+
         public async Task<IServiceResult> GetDictionaryById(string dictionaryId)
         {
             var res = new ServiceResult();
@@ -44,10 +45,6 @@ namespace H2KT.Api.Controllers
             return res;
         }
 
-        
-        /// Lấy danh sách từ điển đã tạo của người dùng
-        
-        
         [HttpGet("get_list_dictionary")]
         public async Task<IServiceResult> GetListDictionary()
         {
@@ -63,10 +60,10 @@ namespace H2KT.Api.Controllers
 
             return res;
         }
-
         
         /// Truy cập vào từ điển
 [HttpGet("load_dictionary")]
+
         public async Task<IServiceResult> LoadDictionary([FromQuery] string dictionaryId)
         {
             var res = new ServiceResult();
@@ -85,6 +82,7 @@ namespace H2KT.Api.Controllers
         
         /// Thực hiện thêm 1 từ điển mới (có thể kèm việc copy dữ liệu từ 1 từ điển khác đã có)
 [HttpPost("add_dictionary")]
+
         public async Task<IServiceResult> AddDictionary([FromBody] AddDictionaryParam param)
         {
             var res = new ServiceResult();
@@ -103,6 +101,7 @@ namespace H2KT.Api.Controllers
         
         /// Thực hiện cập nhật tên từ điển
 [HttpPatch("update_dictionary")]
+
         public async Task<IServiceResult> UpdateDictionary([FromBody] Core.Models.DTO.Dictionary param)
         {
             // param.DictionaryId null thì sẽ có exception của .NET => lỗi 400
@@ -121,8 +120,6 @@ namespace H2KT.Api.Controllers
             return res;
         }
 
-        
-        /// Thực hiện xóa từ điển
 [HttpDelete("delete_dictionary")]
         public async Task<IServiceResult> DeleteDictionary([FromQuery] string dictionaryId)
         {
@@ -139,8 +136,6 @@ namespace H2KT.Api.Controllers
             return res;
         }
 
-        
-        /// Thực hiện xóa dữ liệu trong từ điển
 [HttpDelete("delete_dictionary_data")]
         public async Task<IServiceResult> DeleteDictionaryData([FromQuery] string dictionaryId)
         {
@@ -157,10 +152,9 @@ namespace H2KT.Api.Controllers
             return res;
         }
 
-
-        
         /// Thực hiện copy dữ liệu từ từ điển nguồn và gộp vào dữ liệu ở từ điển đích
 [HttpPost("transfer_dictionary")]
+
         public async Task<IServiceResult> TransferDictionary([FromBody] TransderDictionaryParam param)
         {
             var res = new ServiceResult();
@@ -176,10 +170,6 @@ namespace H2KT.Api.Controllers
             return res;
         }
 
-        
-        /// Lấy số lượng concept, example trong 1 từ điển
-        
-        
         [HttpGet("get_number_record")]
         public async Task<IServiceResult> GetNumberRecord([FromQuery] Guid? dictionaryId)
         {

@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using H2KT.Core.Interfaces.Repository;
 using H2KT.Core.Models.Entity;
 using H2KT.Core.Models.ServerObject;
@@ -86,12 +86,7 @@ public async Task<bool> DeleteDictionaryData(Guid dictionaryId, IDbTransaction t
         }
 
         
-        /// Thực hiện copy dữ liệu từ từ điển nguồn và gộp vào dữ liệu ở từ điển đích
-        
-        /// <param name="sourceDictionaryId"></param>
-        /// <param name="destDictionaryId"></param>
-        /// <param name="isDeleteData"></param>
-        /// <param name="transaction"></param>
+
         
         public async Task<bool> TransferDictionaryData(Guid sourceDictionaryId, Guid destDictionaryId, bool isDeleteData, IDbTransaction transaction = null)
         {
@@ -151,6 +146,5 @@ public async Task<DictionaryNumberRecord> GetNumberRecord(Guid dictionaryId)
             };
         }
         #endregion
-
     }
 }
