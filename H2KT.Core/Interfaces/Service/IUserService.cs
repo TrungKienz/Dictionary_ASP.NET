@@ -26,6 +26,6 @@ namespace H2KT.Core.Interfaces.Service
 
         
         /// Cập nhật các thông tin cá nhân của người dùng
-Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param);
-    }
-}
+        Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param);
+            }
+        }

@@ -156,7 +156,7 @@ public async Task<IServiceResult> LoadDictionary(string dictionaryId)
                         transaction.Commit();
                         res.OnSuccess(new
                         {
-                            SessionId = sessionId,
+                            // SessionId = sessionId,
                             user.UserId,
                             user.UserName,
                             dict.DictionaryId,

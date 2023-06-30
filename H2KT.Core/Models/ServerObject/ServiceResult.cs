@@ -47,7 +47,7 @@ namespace H2KT.Core.Models.ServerObject
 
         #region Methods
 
-        public IServiceResult OnSuccess(object data = null, string message = null)
+        public IServiceResult OnSuccess(object data = null, string message = "Request Success")
         {
             this.Status = ServiceResultStatus.Success;
             this.Data = data;

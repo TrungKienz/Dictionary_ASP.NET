@@ -104,6 +104,7 @@ public async Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param)
 
             // Cập nhật thông tin user
             var userId = this.ServiceCollection.AuthUtil.GetCurrentUserId();
+
             var user = await _repository.SelectObject<User>(new Dictionary<string, object>()
             {
                 { nameof(Models.Entity.user.user_id), userId }
@@ -114,38 +115,33 @@ public async Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param)
                 return res.OnError(ErrorCode.Err9999);
             }
 
-            // TODO: Xem xét giá trị Birthday có đúng không, có bị lệch ngày giờ không
 
             // Upload ảnh đại diện
-            string avatarLink = null;
-            if (param.Avatar != null)
-            {
-                if (!FunctionUtil.IsImageFile(param.Avatar))
-                {
-                    return res.OnError(ErrorCode.Err9003, ErrorMessage.Err9003);
-                }
+            // string avatarLink = null;
+            // if (param.Avatar != null)
+            // {
+            //     if (!FunctionUtil.IsImageFile(param.Avatar))
+            //     {
+            //         return res.OnError(ErrorCode.Err9003, ErrorMessage.Err9003);
+            //     }
 
-                if (!FunctionUtil.IsValidFileSize(param.Avatar))
-                {
-                    return res.OnError(ErrorCode.Err9002, ErrorMessage.Err9002);
-                }
+            //     if (!FunctionUtil.IsValidFileSize(param.Avatar))
+            //     {
+            //         return res.OnError(ErrorCode.Err9002, ErrorMessage.Err9002);
+            //     }
 
-                if (param.Avatar.Length > 0)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        param.Avatar.CopyTo(ms);
-                        var fileBytes = ms.ToArray();
+            //     if (param.Avatar.Length > 0)
+            //     {
+            //         using (var ms = new MemoryStream())
+            //         {
+            //             param.Avatar.CopyTo(ms);
+            //             var fileBytes = ms.ToArray();
 
-                        // Để bảo mật hơn thì dùng Guid.NewGuid().ToString()
-                        // Để tiện hơn thì dùng luôn user id (đè lại, không cần xóa ảnh cũ)
-                        avatarLink = await _storage.UploadAsync(StoragePath.Avatar, userId.ToString(), fileBytes);
-                    }
+            //             avatarLink = await _storage.UploadAsync(StoragePath.Avatar, userId.ToString(), fileBytes);
+            //         }
 
-                    // Xóa ảnh cũ
-                    //_ = await _storage.DeleteAsync(StoragePath.Avatar, fileName);
-                }
-            }
+            //     }
+            // }
 
             var result = await _repository.Update(new 
             {
@@ -154,7 +150,7 @@ public async Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param)
                 full_name = param.FullName ?? user.FullName,
                 birthday = param.Birthday != null ? DateTime.Parse(param.Birthday) : user.Birthday,
                 position = param.Position ?? user.Position,
-                avatar = avatarLink ?? user.Avatar
+                // avatar = avatarLink ?? user.Avatar
             });
 
             if(!result)
@@ -165,8 +161,10 @@ public async Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param)
             res.OnSuccess();
             res.Data = new
             {
-                DisplayName = param.DisplayName ?? user.DisplayName,
-                Avatar = avatarLink ?? user.Avatar
+                FullName = param.FullName,
+                Position = param.Position,
+                Birthday = param.Birthday ,
+                DisplayName = param.DisplayName,
             };
             return res;
         }

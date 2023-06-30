@@ -29,12 +29,14 @@ namespace H2KT.Infrastructure.Repositories
             using (var connection = await this.CreateConnectionAsync())
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("$UserId", userId);
+                parameters.Add("userId", userId);
+
                 var res = await connection.ExecuteAsync(
-                    sql: $"Proc_Account_CreateActivatedAccountData",
+                    sql: "UPDATE `user` SET status = 1 WHERE user_id = @userId",
                     param: parameters,
-                    commandType: CommandType.StoredProcedure,
+                    commandType: CommandType.Text,
                     commandTimeout: ConnectionTimeout);
+
                 return true;
             }
         }

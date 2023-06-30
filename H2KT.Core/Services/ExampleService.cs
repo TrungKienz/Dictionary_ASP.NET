@@ -111,7 +111,7 @@ namespace H2KT.Core.Services
             // Xử lý liên kết
             var mapLstRel = new List<example_relationship>();
 
-            if(example.ListExampleRelationship != null && example.ListExampleRelationship.Count > 0)
+            if(example.ListExampleRelationship != null && example.ListExampleRelationship.Count > 0) // kiểm tra từng bản ghi 1 nếu có tồn tại 
             {
                 var lstViewRel = example.ListExampleRelationship
                     .Where(x =>
