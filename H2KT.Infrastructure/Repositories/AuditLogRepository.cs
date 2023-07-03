@@ -54,9 +54,9 @@ namespace H2KT.Infrastructure.Repositories
             using (var connection = await this.CreateConnectionAsync())
             {
                 res = await connection.QueryAsync<audit_log>(
-                    sql: $"Proc_Log_GetLogsFilterPaging",
+                    sql: "SELECT * FROM audit_log WHERE created_date >= '29-06-2023' AND created_date <= '01-07-2023';",
                     param: parameters,
-                    commandType: CommandType.StoredProcedure,
+                    commandType: CommandType.Text,
                     commandTimeout: ConnectionTimeout);
             }
 

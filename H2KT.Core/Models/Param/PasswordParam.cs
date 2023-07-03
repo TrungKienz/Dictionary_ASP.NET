@@ -11,7 +11,7 @@ namespace H2KT.Core.Models.Param
     
     public class PasswordParam
     {
-        public string Token{ get; set; }
+        public string verificationToken{ get; set; }
         public string OldPassword { get; set; }
         public string NewPassword { get; set; }
     }

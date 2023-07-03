@@ -145,7 +145,7 @@ namespace H2KT.Api.Controllers
             var res = new ServiceResult();
             try
             {
-                return await _service.ResetPassword(param.Token, param.NewPassword);
+                return await _service.ResetPassword(param.verificationToken, param.NewPassword);
             }
             catch (Exception ex)
             {
