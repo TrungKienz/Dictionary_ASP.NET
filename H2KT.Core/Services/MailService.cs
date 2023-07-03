@@ -80,7 +80,7 @@ namespace H2KT.Core.Services
             var mailParam = new MailParam
             {
                 ToEmail = toEmail,
-                Subject = $"Nhom2 PVO - Verify your account",
+                Subject = $"Nhom2 Dictionary - Verify your account",
                 Body = mailText,
             };
 

@@ -68,7 +68,7 @@ namespace H2KT.Core.Services
 
         
         /// Lưu lịch sử truy cập của người dùng
-public async Task<IServiceResult> SaveLog(Models.DTO.AuditLog param)
+        public async Task<IServiceResult> SaveLog(Models.DTO.AuditLog param)
         {
             var res = new ServiceResult();
 
