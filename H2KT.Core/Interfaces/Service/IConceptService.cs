@@ -14,15 +14,15 @@ namespace H2KT.Core.Interfaces.Service
     {
         
         /// Lấy danh sách concept trong từ điển
-Task<IServiceResult> GetListConcept(string dictionaryId);
+        Task<IServiceResult> GetListConcept(string dictionaryId);
 
         
         /// Thêm 1 concept vào từ điển
-Task<IServiceResult> AddConcept(Concept concept);
+        Task<IServiceResult> AddConcept(Concept concept);
 
         
         /// Thực hiện cập nhật tên, mô tả của concept
-Task<IServiceResult> UpdateConcept(Concept concept);
+        Task<IServiceResult> UpdateConcept(Concept concept);
 
         
         /// Thực hiện xóa concept
@@ -31,7 +31,7 @@ Task<IServiceResult> UpdateConcept(Concept concept);
 
         
         /// Lấy dữ liệu concept và các example liên kết với concept đó
-Task<IServiceResult> GetConcept(string conceptId);
+        Task<IServiceResult> GetConcept(string conceptId);
 
         
         /// Lấy danh sách concept trong từ điển mà khớp với xâu tìm kiếm của người dùng
@@ -48,7 +48,7 @@ Task<IServiceResult> GetConcept(string conceptId);
 
         
         /// Thực hiện cập nhật (hoặc tạo mới nếu chưa có) liên kết giữa 2 concept
-Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelationshipParam param);
+        Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelationshipParam param);
 
         
         /// Thực hiện lấy danh sách gợi ý concept từ những từ khóa người dùng cung cấp.
@@ -58,19 +58,19 @@ Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelationshipParam pa
         #region Tree service
         
         /// Lấy dữ liệu tree của concept
-Task<IServiceResult> GetTree(Guid conceptId);
+        Task<IServiceResult> GetTree(Guid conceptId);
 
         
         /// Lấy dữ liệu tree: các concept cha của 1 concept
-Task<IServiceResult> GetConceptParents(Guid conceptId);
+        Task<IServiceResult> GetConceptParents(Guid conceptId);
 
         
         /// Lấy dữ liệu tree: các concept con của 1 concept
-Task<IServiceResult> GetConceptChildren(Guid conceptId);
+        Task<IServiceResult> GetConceptChildren(Guid conceptId);
 
         
         /// Lấy dữ liệu tree: danh sách example liên kết với 1 concept theo loại mối quan hệ
-Task<IServiceResult> GetLinkedExampleByRelationshipType(Guid conceptId, Guid exampleLinkId);
+        Task<IServiceResult> GetLinkedExampleByRelationshipType(Guid conceptId, Guid exampleLinkId);
         #endregion
 
 

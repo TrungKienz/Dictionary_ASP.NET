@@ -10,6 +10,7 @@ using H2KT.Core.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -267,7 +268,7 @@ public async Task<IServiceResult> GetConcept(string conceptId)
                 ConceptId = concept?.concept_id,
                 Title = concept?.title,
                 Description = concept?.description,
-                NormalizedTitle = concept?.normalized_title,
+                // NormalizedTitle = concept?.normalized_title,
                 ListExample = lstExample
             });
         }
@@ -449,32 +450,178 @@ public async Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelatio
         
         /// Thực hiện lấy danh sách gợi ý concept từ những từ khóa người dùng cung cấp
 
+        // public async Task<IServiceResult> GetListRecommendConcept(List<string> keywords, Guid? dictionaryId)
+        // {
+        //     var res = new ServiceResult();
+
+        //     if (dictionaryId == null || dictionaryId == Guid.Empty)
+        //     {
+        //         dictionaryId = this.ServiceCollection.AuthUtil.GetCurrentDictionaryId();
+        //     }
+
+        //     var conceptData = await _repository.SelectObjects<Concept>(new { dictionary_id = dictionaryId }) as List<Concept>;
+        //     var conceptRelationshipData = await _repository.SelectObjects<ConceptRelationship>(new { dictionary_id = dictionaryId }) as List<ConceptRelationship>;
+
+
+        //     var data = (from r in conceptRelationshipData
+        //                 join c1 in conceptData on r.ConceptId equals c1.ConceptId
+        //                 join c2 in conceptData on r.ParentId equals c2.ConceptId
+        //                 select new
+        //                 {
+        //                     Concept1 = c1.Title,
+        //                     Concept2 = c2.Title
+        //                 }).ToList();
+
+        //     var lstConcept = new List<string>();
+        //     var deepLevel = 1;
+
+        //     void Find(List<string> words, int k)
+        //     {
+        //         if (k > deepLevel)
+        //         {
+        //             return;
+        //         }
+
+        //         var lstLinkedConcept = new List<string>();
+        //         foreach (var w in words)
+        //         {
+        //             if (lstConcept.Contains(w))
+        //             {
+        //                 continue;
+        //             }
+        //             lstConcept.Add(w);
+        //             //var concept = conceptData.FirstOrDefault(x => x.Title == w);
+        //             //if (concept != null)
+        //             //{
+        //             //    var lstLinkedConceptId = conceptRelationshipData
+        //             //        .Where(x => x.ConceptId == concept.ConceptId || x.ParentId == concept.ConceptId)
+        //             //        .Select(x => x.ConceptId == concept.ConceptId ? x.ParentId : x.ConceptId);
+        //             //    lstLinkedConcept.AddRange(conceptData.Where(x => lstLinkedConceptId.Contains(x.ConceptId)).Select(x => x.Title));
+        //             //}
+        //             lstLinkedConcept.AddRange(data.Where(x => x.Concept1 == w).Select(x => x.Concept2));
+        //             lstLinkedConcept.AddRange(data.Where(x => x.Concept2 == w).Select(x => x.Concept1));
+        //         }
+
+        //         Find(lstLinkedConcept, k + 1);
+        //     }
+
+        //     Find(keywords, 0);
+
+        //     // var dictRelationship = new Dictionary<Concept, List<Concept>>();
+        //     // foreach(var keyword in keywords)
+        //     // {
+        //     //    var concept = conceptData.FirstOrDefault(x => x.Title == keyword);
+        //     //    if (concept != null)
+        //     //    {
+        //     //        var lstLinkedConceptId = conceptRelationshipData
+        //     //            .Where(x => x.ConceptId == concept.ConceptId || x.ParentId == concept.ConceptId)
+        //     //            .Select(x => x.ConceptId == concept.ConceptId ? x.ParentId : x.ConceptId);
+        //     //        if (lstLinkedConceptId != null && lstLinkedConceptId.Any())
+        //     //        {
+        //     //            var lstLinkedConcept = conceptData.Where(x => lstLinkedConceptId.Contains(x.ConceptId));
+        //     //        }
+        //     // }
+        //     bool isPrimary(string w)
+        //     {
+        //         return keywords.Contains(w);
+        //     }
+
+        //     bool isAssociated(string w1, string w2)
+        //     {
+        //         return data.Any(x => (x.Concept1 == w1 && x.Concept2 == w2) || (x.Concept1 == w2 && x.Concept2 == w1));
+        //     }
+
+        //     var n = lstConcept.Count;
+        //     int[,] linkStrengthArr = new int[n, n];
+        //     for (var i = 0; i < n; ++i)
+        //     {
+        //         for (var j = 0; j <= i; ++j)
+        //         {
+        //             if (i == j)
+        //             {
+        //                 linkStrengthArr[i, j] = LinkStrength.Itself;
+        //                 continue;
+        //             }
+
+        //             if (isPrimary(lstConcept[i]) && isPrimary(lstConcept[j]))
+        //             {
+        //                 linkStrengthArr[i, j] = LinkStrength.TwoPrimary;
+        //                 linkStrengthArr[j, i] = LinkStrength.TwoPrimary;
+        //                 continue;
+        //             }
+
+        //             var hasLink = isAssociated(lstConcept[i], lstConcept[j]);
+
+        //             if ((isPrimary(lstConcept[i]) || isPrimary(lstConcept[j])) && hasLink)
+        //             {
+        //                 linkStrengthArr[i, j] = LinkStrength.PrimaryAndAssociatedNonPrimary;
+        //                 linkStrengthArr[j, i] = LinkStrength.PrimaryAndAssociatedNonPrimary;
+        //                 continue;
+        //             }
+
+        //             if (hasLink)
+        //             {
+        //                 linkStrengthArr[i, j] = LinkStrength.TwoAssociatedNonPrimary;
+        //                 linkStrengthArr[j, i] = LinkStrength.TwoAssociatedNonPrimary;
+        //                 continue;
+        //             }
+
+        //             if (isPrimary(lstConcept[i]) || isPrimary(lstConcept[j]))
+        //             {
+        //                 linkStrengthArr[i, j] = LinkStrength.PrimaryAndUnAssociatedNonPrimary;
+        //                 linkStrengthArr[j, i] = LinkStrength.PrimaryAndUnAssociatedNonPrimary;
+        //                 continue;
+        //             }
+
+        //             linkStrengthArr[i, j] = LinkStrength.TwoUnassociatedNonPrimary;
+        //             linkStrengthArr[j, i] = LinkStrength.TwoUnassociatedNonPrimary;
+        //             continue;
+        //         }
+        //     }
+
+        //     var lstActivateScore = Run(n, linkStrengthArr);
+        //     var myDict = new Dictionary<string, decimal>();
+        //     for (var i = 0; i < n; ++i)
+        //     {
+        //         myDict.Add(lstConcept[i], lstActivateScore[i]);
+        //     }
+
+        //     res.Data = from entry in myDict orderby entry.Value descending select entry;
+        //     return res;
+        // }
         public async Task<IServiceResult> GetListRecommendConcept(List<string> keywords, Guid? dictionaryId)
         {
             var res = new ServiceResult();
-
             if (dictionaryId == null || dictionaryId == Guid.Empty)
             {
                 dictionaryId = this.ServiceCollection.AuthUtil.GetCurrentDictionaryId();
             }
-
+        
             var conceptData = await _repository.SelectObjects<Concept>(new { dictionary_id = dictionaryId }) as List<Concept>;
             var conceptRelationshipData = await _repository.SelectObjects<ConceptRelationship>(new { dictionary_id = dictionaryId }) as List<ConceptRelationship>;
-
-
-            var data = (from r in conceptRelationshipData
-                        join c1 in conceptData on r.ConceptId equals c1.ConceptId
-                        join c2 in conceptData on r.ParentId equals c2.ConceptId
-                        select new
-                        {
-                            Concept1 = c1.Title,
-                            Concept2 = c2.Title
-                        }).ToList();
+            if (conceptData.Count == 0 || conceptRelationshipData.Count == 0)
+            {
+                // Handle the case when either collection is empty
+                // Return an appropriate response or take necessary action
+                return res.OnError(ErrorCode.Err9000, "Empty concept data or concept relationship data");
+            }
+            if (keywords == null || !keywords.Any())
+            {
+                return res.OnError(ErrorCode.Err9001, "Invalid keywords");
+            }
+            var linkedConcepts = (from r in conceptRelationshipData
+                                join c1 in conceptData on r.ConceptId equals c1.ConceptId
+                                join c2 in conceptData on r.ParentId equals c2.ConceptId
+                                select new
+                                {
+                                    Concept1 = c1.Title,
+                                    Concept2 = c2.Title
+                                }).ToList();
 
             var lstConcept = new List<string>();
             var deepLevel = 1;
 
-            void Find(List<string> words, int k)
+            void FindLinkedConcepts(List<string> words, int k)
             {
                 if (k > deepLevel)
                 {
@@ -489,45 +636,24 @@ public async Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelatio
                         continue;
                     }
                     lstConcept.Add(w);
-                    //var concept = conceptData.FirstOrDefault(x => x.Title == w);
-                    //if (concept != null)
-                    //{
-                    //    var lstLinkedConceptId = conceptRelationshipData
-                    //        .Where(x => x.ConceptId == concept.ConceptId || x.ParentId == concept.ConceptId)
-                    //        .Select(x => x.ConceptId == concept.ConceptId ? x.ParentId : x.ConceptId);
-                    //    lstLinkedConcept.AddRange(conceptData.Where(x => lstLinkedConceptId.Contains(x.ConceptId)).Select(x => x.Title));
-                    //}
-                    lstLinkedConcept.AddRange(data.Where(x => x.Concept1 == w).Select(x => x.Concept2));
-                    lstLinkedConcept.AddRange(data.Where(x => x.Concept2 == w).Select(x => x.Concept1));
+
+                    lstLinkedConcept.AddRange(linkedConcepts.Where(x => x.Concept1 == w).Select(x => x.Concept2));
+                    lstLinkedConcept.AddRange(linkedConcepts.Where(x => x.Concept2 == w).Select(x => x.Concept1));
                 }
 
-                Find(lstLinkedConcept, k + 1);
+                FindLinkedConcepts(lstLinkedConcept, k + 1);
             }
 
-            Find(keywords, 0);
+            FindLinkedConcepts(keywords, 0);
 
-            //var dictRelationship = new Dictionary<Concept, List<Concept>>();
-            //foreach(var keyword in keywords)
-            //{
-            //    var concept = conceptData.FirstOrDefault(x => x.Title == keyword);
-            //    if (concept != null)
-            //    {
-            //        var lstLinkedConceptId = conceptRelationshipData
-            //            .Where(x => x.ConceptId == concept.ConceptId || x.ParentId == concept.ConceptId)
-            //            .Select(x => x.ConceptId == concept.ConceptId ? x.ParentId : x.ConceptId);
-            //        if (lstLinkedConceptId != null && lstLinkedConceptId.Any())
-            //        {
-            //            var lstLinkedConcept = conceptData.Where(x => lstLinkedConceptId.Contains(x.ConceptId));
-            //        }
-            //}
-            bool isPrimary(string w)
+            bool IsPrimary(string w)
             {
                 return keywords.Contains(w);
             }
 
-            bool isAssociated(string w1, string w2)
+            bool IsAssociated(string w1, string w2)
             {
-                return data.Any(x => (x.Concept1 == w1 && x.Concept2 == w2) || (x.Concept1 == w2 && x.Concept2 == w1));
+                return linkedConcepts.Any(x => (x.Concept1 == w1 && x.Concept2 == w2) || (x.Concept1 == w2 && x.Concept2 == w1));
             }
 
             var n = lstConcept.Count;
@@ -542,16 +668,16 @@ public async Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelatio
                         continue;
                     }
 
-                    if (isPrimary(lstConcept[i]) && isPrimary(lstConcept[j]))
+                    if (IsPrimary(lstConcept[i]) && IsPrimary(lstConcept[j]))
                     {
                         linkStrengthArr[i, j] = LinkStrength.TwoPrimary;
                         linkStrengthArr[j, i] = LinkStrength.TwoPrimary;
                         continue;
                     }
 
-                    var hasLink = isAssociated(lstConcept[i], lstConcept[j]);
+                    var hasLink = IsAssociated(lstConcept[i], lstConcept[j]);
 
-                    if ((isPrimary(lstConcept[i]) || isPrimary(lstConcept[j])) && hasLink)
+                    if ((IsPrimary(lstConcept[i]) || IsPrimary(lstConcept[j])) && hasLink)
                     {
                         linkStrengthArr[i, j] = LinkStrength.PrimaryAndAssociatedNonPrimary;
                         linkStrengthArr[j, i] = LinkStrength.PrimaryAndAssociatedNonPrimary;
@@ -565,7 +691,7 @@ public async Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelatio
                         continue;
                     }
 
-                    if (isPrimary(lstConcept[i]) || isPrimary(lstConcept[j]))
+                    if (IsPrimary(lstConcept[i]) || IsPrimary(lstConcept[j]))
                     {
                         linkStrengthArr[i, j] = LinkStrength.PrimaryAndUnAssociatedNonPrimary;
                         linkStrengthArr[j, i] = LinkStrength.PrimaryAndUnAssociatedNonPrimary;
@@ -585,9 +711,10 @@ public async Task<IServiceResult> UpdateConceptRelationship(UpdateConceptRelatio
                 myDict.Add(lstConcept[i], lstActivateScore[i]);
             }
 
-            res.Data = from entry in myDict orderby entry.Value descending select entry;
+            res.Data = myDict.OrderByDescending(entry => entry.Value);
             return res;
         }
+
         #endregion
 
         #region Helper

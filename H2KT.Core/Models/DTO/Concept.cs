@@ -32,11 +32,11 @@ namespace H2KT.Core.Models.DTO
         
         /// Title được chuẩn hóa
         
-        public string NormalizedTitle { get; set; }
+        // public string NormalizedTitle { get; set; }
 
         
         /// Giá trị soundex của title
         
-        public string SoundexTitle { get; set; }
+        // public string SoundexTitle { get; set; }
     }
 }

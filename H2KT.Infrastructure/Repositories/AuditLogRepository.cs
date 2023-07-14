@@ -32,42 +32,63 @@ namespace H2KT.Infrastructure.Repositories
         /// <param name="pageSize"></param>
         /// <param name="dateFrom"></param>
         /// <param name="dateTo"></param>
-        
+
+
         public async Task<FilterResult<AuditLog>> GetLogsByFilter(string userId, string searchFilter, 
-            int? pageIndex, int? pageSize, DateTime? dateFrom, DateTime? dateTo)
+        int? pageIndex, int? pageSize, DateTime? dateFrom, DateTime? dateTo)
         {
             // Thiết lập các tham số
             var parameters = new DynamicParameters();
-            parameters.Add("$UserId", userId);
-            parameters.Add("$SearchFilter", searchFilter);
-            parameters.Add("$PageIndex", pageIndex);
-            parameters.Add("$PageSize", pageSize);
-            parameters.Add("$DateFrom", dateFrom);
-            parameters.Add("$DateTo", dateTo);
+            parameters.Add("@UserId", userId);
+            searchFilter = '%' + searchFilter + '%';
+            parameters.Add("@SearchFilter", searchFilter);
+            parameters.Add("@PageIndex", pageIndex);
+            parameters.Add("@PageSize", pageSize);
+            parameters.Add("@DateFrom", dateFrom);
+            parameters.Add("@DateTo", dateTo);
 
+            // Câu truy vấn để lấy kết quả theo trang
+            var logsQuery = @"
+                SELECT * FROM audit_log 
+                WHERE reference LIKE @SearchFilter 
+                AND created_date >= @DateFrom 
+                AND created_date <= @DateTo
+                LIMIT @Offset, @PageSize;
+            ";
+
+            // Câu truy vấn để đếm số kết quả trả về
+            var countQuery = @"
+                SELECT COUNT(*) FROM audit_log 
+                WHERE reference LIKE @SearchFilter 
+                AND created_date >= @DateFrom 
+                AND created_date <= @DateTo;
+            ";
 
             // Kết quả đầu ra
-            parameters.Add("$TotalRecord", dbType: DbType.Int32, direction: ParameterDirection.Output);
-            parameters.Add("$TotalPage", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            var result = new FilterResult<AuditLog>();
 
-            IEnumerable<audit_log> res; 
             using (var connection = await this.CreateConnectionAsync())
             {
-                res = await connection.QueryAsync<audit_log>(
-                    sql: "SELECT * FROM audit_log WHERE created_date >= '29-06-2023' AND created_date <= '01-07-2023';",
-                    param: parameters,
-                    commandType: CommandType.Text,
-                    commandTimeout: ConnectionTimeout);
+                // Lấy tổng số kết quả
+                result.TotalRecords = await connection.ExecuteScalarAsync<int>(countQuery, parameters);
+
+                // Tính toán số trang
+                result.TotalPages = (int)Math.Ceiling((double)result.TotalRecords / pageSize.GetValueOrDefault());
+
+                // Tính toán offset
+                var offset = (pageIndex.GetValueOrDefault() - 1) * pageSize.GetValueOrDefault();
+                parameters.Add("@Offset", offset);
+
+                // Lấy kết quả theo trang
+                var res = await connection.QueryAsync<audit_log>(logsQuery, parameters);
+
+                // Trả về kết quả filter
+                result.Data = res != null ? this.ServiceCollection.Mapper.Map<IEnumerable<AuditLog>>(res) : null;
             }
 
-            // Trả về kết quả filter
-            return new FilterResult<AuditLog>
-            {
-                TotalPages = parameters.Get<int?>("$TotalPage"),
-                TotalRecords = parameters.Get<int?>("$TotalRecord"),
-                Data = res != null ? this.ServiceCollection.Mapper.Map<IEnumerable<AuditLog>>(res) : null
-            };
+            return result;
         }
+
         #endregion
 
     }

@@ -4,7 +4,7 @@ using H2KT.Core.Models.DTO;
 using H2KT.Core.Models.Entity;
 using H2KT.Core.Utils;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace H2KT.Infrastructure.Repositories
@@ -26,22 +26,47 @@ namespace H2KT.Infrastructure.Repositories
         
         /// <param name="isSearchSoundex"></param>
         
+        // public async Task<List<Concept>> SearchConcept(string searchKey, string dictionaryId, bool? isSearchSoundex)
+        // {
+        //     using (var connection = await this.CreateConnectionAsync())
+        //     {
+        //         var parameters = new DynamicParameters();
+        //         parameters.Add("$SearchKey", searchKey);
+        //         parameters.Add("$DictionaryId", dictionaryId);
+        //         parameters.Add("$IsSearchSoundex", isSearchSoundex);
+
+        //         var res = await connection.QueryAsync<concept>(
+        //             sql: "Proc_Concept_SearchConcept",
+        //             param: parameters,
+        //             commandType: CommandType.StoredProcedure,
+        //             commandTimeout: ConnectionTimeout);
+
+        //         if(res != null)
+        //         {
+        //             return this.ServiceCollection.Mapper.Map<List<Concept>>(res);
+        //         }
+
+        //         return new List<Concept>();
+        //     }
+        // }
+
         public async Task<List<Concept>> SearchConcept(string searchKey, string dictionaryId, bool? isSearchSoundex)
         {
-            using (var connection = await this.CreateConnectionAsync())
+            using (var connection = await CreateConnectionAsync())
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("$SearchKey", searchKey);
-                parameters.Add("$DictionaryId", dictionaryId);
-                parameters.Add("$IsSearchSoundex", isSearchSoundex);
+                searchKey = '%' + searchKey + '%';
+                parameters.Add("@SearchKey", searchKey);
+                parameters.Add("@DictionaryId", dictionaryId);
+                parameters.Add("@IsSearchSoundex", isSearchSoundex);
 
-                var res = await connection.QueryAsync<concept>(
-                    sql: "Proc_Concept_SearchConcept",
+                var res = await connection.QueryAsync<Concept>(
+                    sql: @"SELECT concept_id ConceptId, dictionary_id DictionaryId, title, description, created_date CreatedDate, modified_date ModifiedDate 
+                    FROM concept WHERE description LIKE @SearchKey AND dictionary_id = @DictionaryId",
                     param: parameters,
-                    commandType: CommandType.StoredProcedure,
                     commandTimeout: ConnectionTimeout);
 
-                if(res != null)
+                if (res != null)
                 {
                     return this.ServiceCollection.Mapper.Map<List<Concept>>(res);
                 }
@@ -49,6 +74,8 @@ namespace H2KT.Infrastructure.Repositories
                 return new List<Concept>();
             }
         }
+
+
         #endregion
 
     }

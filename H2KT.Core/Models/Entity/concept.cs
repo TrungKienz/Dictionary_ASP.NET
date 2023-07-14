@@ -33,11 +33,11 @@ namespace H2KT.Core.Models.Entity
         
         /// Title được chuẩn hóa
         
-        public string normalized_title { get; set; }
+        // public string normalized_title { get; set; }
 
         
         /// Giá trị soundex của title
         
-        public string soundex_title { get; set; }
+        // public string soundex_title { get; set; }
     }
 }

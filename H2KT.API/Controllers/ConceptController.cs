@@ -190,7 +190,7 @@ namespace H2KT.Api.Controllers
         /// Thực hiện lấy danh sách gợi ý concept từ những từ khóa người dùng cung cấp
 
         [HttpGet("get_list_recommend_concept")]
-        public async Task<IServiceResult> GetListRecommendConcept([FromQuery] List<string> keywords, Guid? dictionaryId)
+        public async Task<IServiceResult> GetListRecommendConcept([FromBody] List<string> keywords, Guid? dictionaryId)
         {
             var res = new ServiceResult();
             try

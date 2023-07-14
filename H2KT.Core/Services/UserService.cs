@@ -60,24 +60,24 @@ namespace H2KT.Core.Services
             var user = await _repository.SelectObject<User>(new Dictionary<string, object>()
             {
                 { nameof(Models.Entity.user.user_id), userId },
-                { nameof(Models.Entity.user.password), SecurityUtil.HashPassword(oldPassword) }
+                // { nameof(Models.Entity.user.password), SecurityUtil.HashPassword(oldPassword)}
             }) as User;
 
-            if(user == null)
+            
+            if(user == null|| !SecurityUtil.VerifyPassword(oldPassword, user.Password))
             {
                 return res.OnError(ErrorCode.Err1000, ErrorMessage.Err1000);
-            }
+            };
 
             await _repository.Update(new
             {
                 user_id = userId,
-                password = newPassword
+                password = SecurityUtil.HashPassword(newPassword)
             });
 
             return res.OnSuccess();
-        }
 
-        
+        }
         /// Lấy các thông tin cá nhân của người dùng
         
         
@@ -98,76 +98,137 @@ namespace H2KT.Core.Services
 
         
         /// Cập nhật các thông tin cá nhân của người dùng
-public async Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param)
-        {
-            var res = new ServiceResult();
+// public async Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param)
+//         {
+//             var res = new ServiceResult();
 
-            // Cập nhật thông tin user
-            var userId = this.ServiceCollection.AuthUtil.GetCurrentUserId();
+//             // Cập nhật thông tin user
+//             var userId = this.ServiceCollection.AuthUtil.GetCurrentUserId();
 
-            var user = await _repository.SelectObject<User>(new Dictionary<string, object>()
+//             var user = await _repository.SelectObject<User>(new Dictionary<string, object>()
+//             {
+//                 { nameof(Models.Entity.user.user_id), userId }
+//             }) as User;
+
+//             if(user == null)
+//             {
+//                 return res.OnError(ErrorCode.Err9999);
+//             }
+
+
+//             // Upload ảnh đại diện
+//             string avatarLink = null;
+//             if (param.Avatar != null)
+//             {
+//                 if (!FunctionUtil.IsImageFile(param.Avatar))
+//                 {
+//                     return res.OnError(ErrorCode.Err9003, ErrorMessage.Err9003);
+//                 }
+
+//                 if (!FunctionUtil.IsValidFileSize(param.Avatar))
+//                 {
+//                     return res.OnError(ErrorCode.Err9002, ErrorMessage.Err9002);
+//                 }
+
+//                 if (param.Avatar.Length > 0)
+//                 {
+//                     using (var ms = new MemoryStream())
+//                     {
+//                         param.Avatar.CopyTo(ms);
+//                         var fileBytes = ms.ToArray();
+
+//                         avatarLink = await _storage.UploadAsync(StoragePath.Avatar, userId.ToString(), fileBytes);
+//                     }
+
+//                 }
+//             }
+
+//             var result = await _repository.Update(new 
+//             {
+//                 user_id = (Guid)userId,
+//                 display_name = param.DisplayName ?? user.DisplayName,
+//                 full_name = param.FullName ?? user.FullName,
+//                 birthday = param.Birthday != null ? DateTime.Parse(param.Birthday) : user.Birthday,
+//                 position = param.Position ?? user.Position,
+//                 avatar = avatarLink ?? user.Avatar
+//             });
+
+//             if(!result)
+//             {
+//                 return res.OnError(ErrorCode.Err9999);
+//             }
+
+//             res.OnSuccess();
+//             res.Data = new
+//             {
+//                 FullName = param.FullName,
+//                 Position = param.Position,
+//                 Birthday = param.Birthday ,
+//                 DisplayName = param.DisplayName,
+//             };
+//             return res;
+//         }
+            public async Task<IServiceResult> UpdateUserInfo(UpdateUserInfoParam param)
             {
-                { nameof(Models.Entity.user.user_id), userId }
-            }) as User;
+                var res = new ServiceResult();
 
-            if(user == null)
-            {
-                return res.OnError(ErrorCode.Err9999);
+                // Cập nhật thông tin user
+                var userId = this.ServiceCollection.AuthUtil.GetCurrentUserId();
+
+                var user = await _repository.SelectObject<User>(new Dictionary<string, object>()
+                {
+                    { nameof(Models.Entity.user.user_id), userId }
+                }) as User;
+
+                if (user == null)
+                {
+                    return res.OnError(ErrorCode.Err9999, "User not found.");
+                }
+
+                // Upload ảnh đại diện
+                byte[] avatarBytes = null;
+                if (param.Avatar != null)
+                {
+                    if (!FunctionUtil.IsImageFile(param.Avatar))
+                    {
+                        return res.OnError(ErrorCode.Err9003, ErrorMessage.Err9003);
+                    }
+
+                    if (!FunctionUtil.IsValidFileSize(param.Avatar))
+                    {
+                        return res.OnError(ErrorCode.Err9002, ErrorMessage.Err9002);
+                    }
+
+                    using (var ms = new MemoryStream())
+                    {
+                        param.Avatar.CopyTo(ms);
+                        avatarBytes = ms.ToArray();
+                    }
+                }
+
+                var updateData = new
+                {
+                    display_name = param.DisplayName ?? user.DisplayName,
+                    full_name = param.FullName ?? user.FullName,
+                    birthday = param.Birthday != null ? DateTime.Parse(param.Birthday) : user.Birthday,
+                    position = param.Position ?? user.Position,
+                    avatar = avatarBytes,
+                };
+
+                res.OnSuccess();
+                res.Data = new
+                {
+                    FullName = param.DisplayName,
+                    Position = param.Position,
+                    Birthday = param.Birthday,
+                    DisplayName = param.FullName,
+                    Avatar = avatarBytes != null ? Convert.ToBase64String(avatarBytes) : null
+                };
+
+                return res;
             }
 
 
-            // Upload ảnh đại diện
-            // string avatarLink = null;
-            // if (param.Avatar != null)
-            // {
-            //     if (!FunctionUtil.IsImageFile(param.Avatar))
-            //     {
-            //         return res.OnError(ErrorCode.Err9003, ErrorMessage.Err9003);
-            //     }
-
-            //     if (!FunctionUtil.IsValidFileSize(param.Avatar))
-            //     {
-            //         return res.OnError(ErrorCode.Err9002, ErrorMessage.Err9002);
-            //     }
-
-            //     if (param.Avatar.Length > 0)
-            //     {
-            //         using (var ms = new MemoryStream())
-            //         {
-            //             param.Avatar.CopyTo(ms);
-            //             var fileBytes = ms.ToArray();
-
-            //             avatarLink = await _storage.UploadAsync(StoragePath.Avatar, userId.ToString(), fileBytes);
-            //         }
-
-            //     }
-            // }
-
-            var result = await _repository.Update(new 
-            {
-                user_id = (Guid)userId,
-                display_name = param.DisplayName ?? user.DisplayName,
-                full_name = param.FullName ?? user.FullName,
-                birthday = param.Birthday != null ? DateTime.Parse(param.Birthday) : user.Birthday,
-                position = param.Position ?? user.Position,
-                // avatar = avatarLink ?? user.Avatar
-            });
-
-            if(!result)
-            {
-                return res.OnError(ErrorCode.Err9999);
-            }
-
-            res.OnSuccess();
-            res.Data = new
-            {
-                FullName = param.FullName,
-                Position = param.Position,
-                Birthday = param.Birthday ,
-                DisplayName = param.DisplayName,
-            };
-            return res;
-        }
         #endregion
 
     }

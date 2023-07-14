@@ -29,7 +29,8 @@ public async Task<List<Example>> SearchExample(SearchExampleParam param)
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("$DictionaryId", param.DictionaryId);
-                parameters.Add("$Keyword", param.Keyword);
+                var keyWord = '%' + param.Keyword + '%';
+                parameters.Add("@Keyword", keyWord);
                 parameters.Add("$ToneId", param.ToneId);
                 parameters.Add("$ModeId", param.ModeId);
                 parameters.Add("$RegisterId", param.RegisterId);
@@ -46,9 +47,8 @@ public async Task<List<Example>> SearchExample(SearchExampleParam param)
                 parameters.Add("$IsFulltextSearch", param.IsFulltextSearch);
 
                 var res = await connection.QueryAsync<example>(
-                    sql: "Proc_Example_SearchExample",
+                    sql: @"Select * from example where detail Like @Keyword",
                     param: parameters,
-                    commandType: CommandType.StoredProcedure,
                     commandTimeout: ConnectionTimeout);
 
                 if (res != null)

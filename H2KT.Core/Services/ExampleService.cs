@@ -56,7 +56,7 @@ namespace H2KT.Core.Services
             var res = new ServiceResult();
 
             // Check đầu vào
-            if (example == null || string.IsNullOrWhiteSpace(example.DetailHtml) || !FunctionUtil.CheckStringHasHightlight(example.DetailHtml))
+            if (example == null && string.IsNullOrWhiteSpace(example.DetailHtml) && !FunctionUtil.CheckStringHasHightlight(example.DetailHtml))
             {
                 return res.OnError(ErrorCode.Err9000, ErrorMessage.Err9000);
             }
@@ -177,14 +177,18 @@ namespace H2KT.Core.Services
         public async Task<IServiceResult> UpdateExample(Example example)
         {
             var res = new ServiceResult();
-
+            if (example.DictionaryId == null || example.DictionaryId == Guid.Empty)
+            {
+                example.DictionaryId = this.ServiceCollection.AuthUtil.GetCurrentDictionaryId();
+            }
             // Check đầu vào
             if (example == null 
                 || example.ExampleId == Guid.Empty
                 || example.DictionaryId == null
                 || example.DictionaryId == Guid.Empty
                 || string.IsNullOrWhiteSpace(example.DetailHtml) 
-                || !FunctionUtil.CheckStringHasHightlight(example.DetailHtml))
+                || !FunctionUtil.CheckStringHasHightlight(example.DetailHtml)
+                )
             {
                 return res.OnError(ErrorCode.Err9000, ErrorMessage.Err9000);
             }
@@ -196,7 +200,7 @@ namespace H2KT.Core.Services
             var savedExample = await _repository.SelectObject<Example>(new Dictionary<string, object>
             {
                 { nameof(Models.Entity.example.example_id), example.ExampleId },
-                { nameof(Models.Entity.example.dictionary_id), example.DictionaryId },
+                // { nameof(Models.Entity.example.dictionary_id), example.DictionaryId },
             }) as Example;
 
             if (savedExample == null)
